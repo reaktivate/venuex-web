@@ -9,6 +9,8 @@ import { getVenueId } from 'redux/venue/venueSelectors';
 import GenericHeader from 'ui/components/GenericHeader';
 import EventsCalendar from './EventsCalendar';
 import EventsHeader from './EventsHeader';
+import EventDialog from './EventDialog';
+import { openModal, closeModal } from 'redux/modals/modalActions';
 
 const LegendItem = styled.div`
   margin-top: 15px;
@@ -91,15 +93,47 @@ class Events extends PureComponent {
     });
   };
 
-  handleAdd = (date = null) => {
-    console.log(date);
-    this.setState({
-      isAddingEvent: true,
-      addDate: date?date:this.state.date
-    });
+  closeModal = () =>{
+    this.props.history.push(`/events`);
+    this.props.dispatch(closeModal({id:'event-dialog'}));
   }
 
-  handleEventClick = event => this.props.history.push(`/events/${event.id}`)
+  handleAdd = (date = null) => {
+    //console.log(date);
+    const addDate = date?date:this.state.date;
+
+    this.setState({
+      isAddingEvent: true,
+      addDate
+    });
+
+    this.props.dispatch(openModal({
+      id: "event-dialog",
+      type: 'custom',
+      content: (
+        <EventDialog
+          id='event-dialog'
+          event={{start:moment(addDate)}}
+          onClose={this.closeModal}
+        />
+      )
+    }))
+  }
+
+  handleEventClick = event => {
+    this.props.history.push(`/events/${event.id}`);
+    this.props.dispatch(openModal({
+      id: "event-dialog",
+      type: 'custom',
+      content: (
+        <EventDialog
+          id='event-dialog'
+          event={event}
+          onClose={this.closeModal}
+        />
+      )
+    }))
+  }
 
   render() {
     const { eventsByDate, match, allEvents } = this.props;

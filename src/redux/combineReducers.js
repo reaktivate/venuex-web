@@ -5,11 +5,13 @@ import { connectRouter } from 'connected-react-router';
 
 import authReducer from './auth/authReducer';
 import venueReducer from './venue/venueReducer';
+import modalReducer from './modals/modalReducer';
 
 export default (history) => combineReducers({
   firebase: firebaseReducer,
   form: formReducer,
   router: connectRouter(history),
   auth: authReducer,
-  venue: venueReducer
+  venue: venueReducer,
+  modals: modalReducer
 });

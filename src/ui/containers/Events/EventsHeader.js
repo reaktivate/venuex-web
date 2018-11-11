@@ -56,7 +56,7 @@ export default class EventsHeader extends PureComponent {
             <CalTitle>{date.format('MMMM YYYY')}</CalTitle>
             <ArrowIcon src={rightArrowIcon} onClick={onNextMonth} />
           </MonthPicker>
-          <div style={{ display: 'flex', 'margin-left': 'auto' }}>
+          <div style={{ display: 'flex', marginLeft: 'auto' }}>
             <AddButton onClick={onAdd} />
           </div>
       </Container>

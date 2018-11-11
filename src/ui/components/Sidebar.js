@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import ModalContainer from 'ui/containers/Modal/ModalContainer';
 
 import calendarWhiteIcon from '../icons/raw/calendar-white.svg';
 import peopleWhiteIcon from '../icons/raw/people-white.svg';
@@ -93,6 +94,7 @@ const Sidebar = ({ children, match }) => {
         </Item>
       </Container>
       <MainScreen>
+        <ModalContainer />
         {children}
       </MainScreen>
     </Layout>
