@@ -37,8 +37,28 @@ const EventsFrame = styled.div`
   width: 100%;
   height: 100%; 
   
-  .rbc-event {
-    background-color: ${props => `${props.theme.colors.primary}`};
+  .rbc-month-view {
+    border:1px solid #ededed;
+    border-top: 0;
+  
+    .rbc-month-header {
+      height:59px;
+      background: #ffffff;
+      border-bottom:1px solid #ededed;
+      .rbc-header {
+        border: none;
+        line-height: 59px;
+        text-align: center;
+        text-transform: uppercase;
+        font-family: 'Montserrat';
+        font-size: 12px;
+        letter-spacing: 0.3px;
+        color: #888888;
+        }
+    }
+    .rbc-event {
+      background-color: ${props => `${props.theme.colors.primary}`};
+    }
   }
 `;
 
