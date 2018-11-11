@@ -66,6 +66,13 @@ const Layout = styled.div`
   height: 100vh;
 `;
 
+const MainScreen = styled.div`
+  display: flex;
+  height: calc(100% - 40px);
+  padding: 20px;
+  width:100%;
+`;
+
 const Sidebar = ({ children, match }) => {
 
   return (
@@ -85,7 +92,9 @@ const Sidebar = ({ children, match }) => {
           <div>Billing</div>
         </Item>
       </Container>
-      {children}
+      <MainScreen>
+        {children}
+      </MainScreen>
     </Layout>
   );
 };

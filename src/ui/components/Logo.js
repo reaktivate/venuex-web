@@ -1,11 +1,14 @@
-/* eslint-disable */
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
-import { withFirebase } from 'react-redux-firebase';
+import { connect } from 'react-redux';
+import defaultLogo from 'ui/icons/raw/default-logo.png';
+import { getLogoThunk } from '../../redux/venue/venueActions';
+
 
 const Container = styled.div`
   display: flex;
 `;
+
 
 const LogoImage = styled.img`
   height: 100px;
@@ -13,25 +16,32 @@ const LogoImage = styled.img`
   margin:auto;
 `;
 
+
 class Logo extends PureComponent {
-  state = {
-    url: 'about:blank',
-  };
+  state = {};
 
   componentWillMount() {
-    this.props.firebase.storage().ref().child('venues/test_venue/assets/images/splash_screen_logo.png').getDownloadURL()
-      .then((url) => {
-        this.setState({ url });
-      });
+    const { props } = this;
+    props.getLogo();
   }
 
   render() {
-      return (
-        <Container >
-          <LogoImage src={this.state.url} alt="Home" />
-        </Container>
-      );
+    const { config } = this.props;
+    return (
+      <Container>
+        <LogoImage src={(config && config.logo) ? config.logo : defaultLogo} alt="Home" />
+      </Container>
+    );
   }
 }
 
-export default withFirebase(Logo);
+const mapStateToProps = (state) => ({
+  config: state.venue
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  // same effect
+  getLogo: () => dispatch(getLogoThunk()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Logo);

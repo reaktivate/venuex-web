@@ -1,7 +1,8 @@
-import { SET_VENUE } from './venueActions';
+import { SET_VENUE, GET_LOGO } from './venueActions';
 
 const initState = {
-  venueId: null
+  venueId: null,
+  logo: null
 };
 
 const venueReducer = (state = initState, action) => {
@@ -10,6 +11,11 @@ const venueReducer = (state = initState, action) => {
       return {
         ...state,
         venueId: action.payload.venueId
+      };
+    case GET_LOGO:
+      return {
+        ...state,
+        logo: action.payload
       };
 
     default:

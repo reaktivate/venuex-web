@@ -5,8 +5,10 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import styled from 'styled-components';
 import { firebaseConnect, isLoaded } from 'react-redux-firebase';
-
+import { getVenueId } from 'redux/venue/venueSelectors';
+import GenericHeader from 'ui/components/GenericHeader';
 import EventsCalendar from './EventsCalendar';
+import EventsHeader from './EventsHeader';
 
 const LegendItem = styled.div`
   margin-top: 15px;
@@ -34,6 +36,10 @@ const EventsFrame = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%; 
+  
+  .rbc-event {
+    background-color: ${props => `${props.theme.colors.primary}`};
+  }
 `;
 
 const EventsFooter = styled.div`
@@ -101,6 +107,15 @@ class Events extends PureComponent {
     return (
       <React.Fragment>
         <EventsFrame>
+          <GenericHeader>
+            <EventsHeader
+              date={this.state.date}
+              onNextMonth={this.handleNextMonth}
+              onPreviousMonth={this.handlePreviousMonth}
+              onAdd={this.handleAdd}
+              onToday={this.handleToday}
+            />
+          </GenericHeader>
           {/*<AddEventModal*/}
             {/*isOpen={this.state.isAddingEvent}*/}
             {/*onClose={() => this.setState({ isAddingEvent: false })}*/}
@@ -142,11 +157,11 @@ class Events extends PureComponent {
 }
 
 export default compose(
-  firebaseConnect(() => [{
+  firebaseConnect((props, store) => [{
     path: 'events',
     queryParams: [
       'orderByChild=venueId',
-      'equalTo=test_venue',
+      `equalTo=${getVenueId(store.getState())}`,
     ],
   }]),
   connect(state => ({
