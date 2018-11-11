@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { getUser } from 'redux/auth/authSelectors';
+import MenuList from '@material-ui/core/MenuList';
+import MenuItem from '@material-ui/core/MenuItem';
+import Popper from '@material-ui/core/Popper';
+import Paper from '@material-ui/core/Paper';
+import Grow from '@material-ui/core/Grow';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItem from '@material-ui/core/ListItem';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import styled from 'styled-components';
-import Dropdown from 'ui/elements/Dropdown';
 import LogOut from 'ui/icons/LogOut';
+
+const Container = styled.div`
+  div[role=tooltip] {
+    z-index:100;
+    margin-left:-100px;
+  }
+`;
 
 const ProfilePicture = styled.img`
   width: 50px;
@@ -14,6 +29,7 @@ const ProfilePicture = styled.img`
   cursor: pointer;
 `;
 
+/*
 const NameSection = styled.div`
   padding: 10px 0px;
   border-bottom: solid 1px #d8d8d8;
@@ -34,39 +50,61 @@ const Item = styled.div`
     margin-right: 8px;
   }
 `;
+*/
+class PersonalMenu extends PureComponent {
+  state = {
+    open: false
+  };
 
-const PersonalMenu = ({ currentUser }) => (
-  <div>
-    <Dropdown
-      toggle={
-          <ProfilePicture src="https://placehold.it/100x100" />
-        }
-    >
-      <div>
-        <NameSection>
-          Hi, {currentUser.displayName}
-        </NameSection>
 
-        {/*
-        <Item>
-          <Camera color="#b0b0b0" />
-          <div>Edit profile Image</div>
-        </Item>
+  handleToggle = () => {
+    this.setState(state => ({ open: !state.open }));
+  };
 
-        <Item>
-          <Key color="#b0b0b0" />
-          <div>Change password</div>
-        </Item>
-        */}
+  handleClose = event => {
+    if (this.anchorEl && this.anchorEl.contains(event.target)) {
+      return;
+    }
 
-        <Item>
-          <LogOut color="#b0b0b0" />
-          <div>Log Out</div>
-        </Item>
-      </div>
-    </Dropdown>
-  </div>
-);
+    this.setState({ open: false });
+  };
+
+  render() {
+    const { currentUser } = this.props;
+    const { open } = this.state;
+    return (
+      <Container>
+        <ProfilePicture src="https://placehold.it/100x100" onClick={this.handleToggle} />
+        <Popper open={open} anchorEl={this.anchorEl} transition disablePortal>
+          {({ TransitionProps }) => (
+            <Grow
+              {...TransitionProps}
+              id="menu-list-grow"
+              style={{ transformOrigin: 'center top' }}
+            >
+              <Paper>
+                <ClickAwayListener onClickAway={this.handleClose}>
+                  <MenuList>
+                    <ListItem>
+                      <ListItemText primary={`Hi, ${currentUser.displayName || 'user'}`} />
+                    </ListItem>
+                    <MenuItem onClick={this.handleClose}>
+                      <ListItemIcon>
+                        <LogOut color="#b0b0b0" />
+                      </ListItemIcon>
+                      <ListItemText inset primary="Log out" />
+                    </MenuItem>
+                  </MenuList>
+                </ClickAwayListener>
+              </Paper>
+            </Grow>
+          )}
+        </Popper>
+      </Container>
+    );
+  }
+}
+
 
 export default connect(state => ({
   currentUser: getUser(state),
