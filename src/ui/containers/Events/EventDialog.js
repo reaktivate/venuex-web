@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import AbstractModal from 'ui/components/Modal/AbstractModal';
 import moment from 'moment';
 
+import ViewEvent from 'ui/components/Events/ViewEvent';
+
 const Container = styled.div`
   display:flex;
 `;
@@ -11,7 +13,8 @@ const Container = styled.div`
 
 export default class EventDialog extends AbstractModal {
   state = {
-    count:1
+    isAdding: this.props.event.id ? false : true,
+    isEditing: this.props.event.id ? false : true
   };
 
   onClose() {
@@ -26,26 +29,24 @@ export default class EventDialog extends AbstractModal {
     );
   }
 
-  increase = () => {
-    this.setState({count: this.state.count + 1})
-  }
-
   getContent() {
-    const { id, event } = this.props;
+    const { event } = this.props;
+    const { isEditing } = this.state;
     return (
-      <div>
-        Test content {id} {this.state.count}
-        {moment(event.start).format()}
-        <br/>
-        <a onClick={()=>this.increase()}>+1</a>
-
-      </div>
+      <React.Fragment>
+        {!isEditing
+        &&
+        <ViewEvent event={event} />
+        }
+      </React.Fragment>
     );
   }
   getFooter() {
-    const { id } = this.props;
+    const { isEditing } = this.state;
     return (
-      <div>Test footer {id}</div>
+      <div>
+
+      </div>
     );
   }
 

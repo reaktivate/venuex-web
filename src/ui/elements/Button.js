@@ -36,6 +36,9 @@ const Button = styled.div`
   ${props => props.kind === 'danger' && css`
     color: #c02026;
   `}
+  ${props => props.kind === 'white-bg' && css`
+    background-color: #ffffff;
+  `}
 
   ${props => props.kind === 'white' && css`
     background-color: #ffffff;

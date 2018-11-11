@@ -48,6 +48,7 @@ export default class EventsHeader extends PureComponent {
           <div>
             <Button
               label="Today"
+              kind="white-bg"
               onClick={onToday}
             />
           </div>
