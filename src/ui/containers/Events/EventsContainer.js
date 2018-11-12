@@ -36,9 +36,8 @@ const LegendItem = styled.div`
 const EventsFrame = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%; 
-  
+  width: 100%; 
+  height: 900px;
   .rbc-month-view {
     border:1px solid #ededed;
     border-top: 0;
@@ -61,6 +60,15 @@ const EventsFrame = styled.div`
     .rbc-event {
       background-color: ${props => `${props.theme.colors.primary}`};
     }
+  }
+  @media screen and (max-width: 1300px){
+    height: 800px;
+  }
+  @media screen and (max-width: 1100px){
+    height: 700px;
+  }
+  @media screen and (max-width: 900px){
+    height: 600px;
   }
 `;
 
