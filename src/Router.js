@@ -10,6 +10,7 @@ import { getUser } from './redux/auth/authSelectors';
 import Sidebar from './ui/components/Sidebar';
 import LoginContainer from './ui/containers/Login/LoginContainer';
 import EventsContainer from './ui/containers/Events/EventsContainer';
+import GuestlistContainer from './ui/containers/Guestlist/GuestlistContainer';
 
 // import Events from './Events';
 // import Events from './Events';
@@ -48,6 +49,7 @@ const VenueApp = connect(state => ({
 const Routes = (
   <Switch>
     <Route exact path="/login" component={LoginContainer} />
+    <Route exact path="/guestlist" component={GuestlistContainer} />
     <Route path="/" component={VenueApp} />
   </Switch>
 );
