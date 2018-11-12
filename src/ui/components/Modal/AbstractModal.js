@@ -7,19 +7,19 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import closeIcon from 'ui/icons/Close';
 
-const StyledDialog = styled(Dialog)``;
+export const Modal = styled(Dialog)``;
 
-const StyledDialogContent = styled(DialogContent)`
+export const Content = styled(DialogContent)`
 &&{
   padding: 20px 50px 20px 50px;
 }
 `;
 
-const IClose = styled(closeIcon)`
+export const IClose = styled(closeIcon)`
   cursor: pointer;
 `;
 
-const StyledDialogTitle = styled(DialogTitle)`
+export const StyledDialogTitle = styled(DialogTitle)`
   &&{
     background-color: ${props => props.theme.colors.primary}66;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
@@ -27,7 +27,18 @@ const StyledDialogTitle = styled(DialogTitle)`
   }
 `;
 
-const StyledDialogActions = styled(DialogActions)`
+export class Title extends PureComponent {
+  render() {
+    return (
+      <StyledDialogTitle>
+        <div style={{ float: 'right' }}><IClose onClick={()=>this.props.onClose()} size={14} /></div>
+        {this.props.children}
+      </StyledDialogTitle>
+    )
+  }
+}
+
+export const Actions = styled(DialogActions)`
   &&{
     margin: 0;
     border: none;
@@ -37,42 +48,6 @@ const StyledDialogActions = styled(DialogActions)`
   }
 `;
 
-class AbstractModal extends PureComponent {
+export class AbstractModal extends PureComponent {
 
-  onClose() {
-    console.log('close');
-  }
-  getHeader() {
-    return '';
-  }
-  getContent() {
-    return (
-      <div>test</div>
-    );
-  }
-  getFooter(){
-    return '';
-  }
-
-  render() {
-    return (
-      <StyledDialog
-        open
-        onClose={()=>this.onClose()}
-      >
-        <StyledDialogTitle>
-          <div style={{ float: 'right' }}><IClose onClick={()=>this.onClose()} size={14} /></div>
-          {this.getHeader()}
-        </StyledDialogTitle>
-        <StyledDialogContent>
-          {this.getContent()}
-        </StyledDialogContent>
-        <StyledDialogActions>
-          {this.getFooter()}
-        </StyledDialogActions>
-      </StyledDialog>
-    );
-  }
 }
-
-export default AbstractModal;
