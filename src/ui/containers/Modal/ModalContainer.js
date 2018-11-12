@@ -2,10 +2,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Modal from 'ui/components/Modal/Modal';
 import * as actions from 'redux/modals/modalActions';
 
-import EventDialog from 'ui/containers/Events/EventDialog';
+import EventDialog from 'ui/components/Events/EventDialog';
 
 const MODAL_COMPONENTS = {
   'event-dialog': EventDialog

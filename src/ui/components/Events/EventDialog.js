@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import * as Modal from 'ui/components/Modal/AbstractModal';
 import moment from 'moment';
-
+import Rings from 'ui/icons/Rings.js';
 import ViewEvent from 'ui/components/Events/ViewEvent';
 import EditEvent from 'ui/components/Events/ViewEvent';
 
@@ -19,7 +19,7 @@ export default class EventDialog extends Modal.AbstractModal {
   };
 
   render(){
-    const { id, event } = this.props;
+    const { id, event, rooms } = this.props;
     const { isEditing, isAdding } = this.state;
     return (
       <Modal.Modal
@@ -27,12 +27,13 @@ export default class EventDialog extends Modal.AbstractModal {
         onClose={()=>this.onClose()}
       >
         <Modal.Title onClose={()=>this.onClose()}>
-          This is a text
+          <div className="icon"><Rings size={120}/></div>
+          {event.name}
         </Modal.Title>
         <Modal.Content>
           {!isEditing
           &&
-          <ViewEvent event={event} />
+          <ViewEvent event={event} rooms={rooms}/>
           }
           {isEditing
           &&

@@ -7,9 +7,8 @@ import styled from 'styled-components';
 import { firebaseConnect, isLoaded } from 'react-redux-firebase';
 import { getVenueId } from 'redux/venue/venueSelectors';
 import GenericHeader from 'ui/components/GenericHeader';
-import EventsCalendar from './EventsCalendar';
-import EventsHeader from './EventsHeader';
-import EventDialog from './EventDialog';
+import EventsCalendar from '../../components/Events/EventsCalendar';
+import EventsHeader from '../../components/Events/EventsHeader';
 import { openModal, closeModal } from 'redux/modals/modalActions';
 
 const LegendItem = styled.div`
@@ -143,7 +142,8 @@ class Events extends PureComponent {
         type: 'custom',
         props: {
           event: event,
-          onClose: this.closeModal
+          onClose: this.closeModal,
+          rooms: this.props.rooms
         }
       }
       ));
@@ -234,5 +234,6 @@ export default compose(
   }]),
   connect(state => ({
     allEvents: isLoaded(state.firebase.data.events) ? state.firebase.data.events : {},
+    rooms: state.firebase.data.venues[getVenueId(state)].rooms
   })),
 )(Events);
