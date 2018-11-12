@@ -75,6 +75,12 @@ class Events extends PureComponent {
     isAddingEvent: false,
   };
 
+  componentDidMount() {
+    const {match} = this.props;
+    if (match.params.id) {
+    }
+  }
+
   handleNextMonth = () => {
     this.setState({
       date: moment(this.state.date.add(1, 'M')),
@@ -107,6 +113,7 @@ class Events extends PureComponent {
       addDate
     });
 
+/*
     this.props.dispatch(openModal({
       id: "event-dialog",
       type: 'custom',
@@ -118,21 +125,20 @@ class Events extends PureComponent {
         />
       )
     }))
+    */
   }
 
   handleEventClick = event => {
     this.props.history.push(`/events/${event.id}`);
     this.props.dispatch(openModal({
-      id: "event-dialog",
-      type: 'custom',
-      content: (
-        <EventDialog
-          id='event-dialog'
-          event={event}
-          onClose={this.closeModal}
-        />
-      )
-    }))
+        id: "event-dialog",
+        type: 'custom',
+        props: {
+          event: event,
+          onClose: this.closeModal
+        }
+      }
+      ));
   }
 
   render() {
