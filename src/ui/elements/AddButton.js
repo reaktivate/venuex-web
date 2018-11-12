@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import plusIcon from 'ui/icons/raw/plus.svg';
+import plusIcon from '../icons/raw/plus.svg';
 
 const AddIcon = styled.img`
   height: 17px;
