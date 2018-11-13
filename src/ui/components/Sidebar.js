@@ -98,7 +98,7 @@ const Layout = styled.div`
 
 const MainScreen = styled.div`
   display: flex;
-  padding: 20px;
+  padding: 20px 11px 20px 32px;
   box-sizing: border-box;
   width:100%;
 `;

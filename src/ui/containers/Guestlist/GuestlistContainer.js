@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Sidebar from '../../components/Sidebar';
 import Header from './GuestlistHeader.js';
-import Search from '../../elements/Search.js';
-import UserBox from './UserBox.js';
+import Summary from './GuestlistSummary.js';
 
 const Container = styled.div`
   padding: 15px 20px;
@@ -25,10 +24,8 @@ export default class Guestlist extends Component {
     return (
       <Sidebar>
         <Container>
-          <Header>
-            <Search placeholder="Search guest name" />
-            <UserBox />
-          </Header>
+          <Header />
+          <Summary />
         </Container>
       </Sidebar>
     );

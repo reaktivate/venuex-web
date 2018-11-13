@@ -25,7 +25,6 @@ const ProfilePicture = styled.img`
   height: 50px;
   border-radius: 50%;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, .10);
-  margin: 0px 5px;
   cursor: pointer;
 `;
 

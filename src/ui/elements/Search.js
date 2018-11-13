@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
-import icon from '../icons/raw/bill-white.svg';
+import SearchIcon from '../icons/Search.js';
 
 const SearchBox = styled.div`
   display: flex;
@@ -97,7 +97,7 @@ export default class Search extends PureComponent {
     return (
       <SearchBox>
         <input type="text" placeholder={placeholder} onChange={this.handleChange} />
-        <img src={icon} alt="ss" />
+        <SearchIcon color="#b0b0b0" />
       </SearchBox>
     );
   }
