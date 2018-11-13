@@ -24,7 +24,7 @@ export const StyledDialogTitle = styled(DialogTitle)`
     background-color: ${props => props.theme.colors.primary}66;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
     padding: 20px 20px 20px 20px;
-    height:160px;
+    height:${props => props.smaller ? 60 : 160}px;
     display:flex;
     h2 {
       font-family: 'Lora';
@@ -32,7 +32,7 @@ export const StyledDialogTitle = styled(DialogTitle)`
       font-weight: normal;
       font-style: normal;
       font-stretch: normal;
-      line-height: 120px;
+      line-height: ${props => props.smaller ? 40 : 120}px;
       letter-spacing: -0.6px;
       color: #181818;
       display:flex;
@@ -53,7 +53,7 @@ export const StyledDialogTitle = styled(DialogTitle)`
 export class Title extends PureComponent {
   render() {
     return (
-      <StyledDialogTitle>
+      <StyledDialogTitle smaller={this.props.smaller}>
         {this.props.children}
         <div className="closeWrapper"><IClose onClick={()=>this.props.onClose()} size={14} /></div>
       </StyledDialogTitle>

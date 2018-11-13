@@ -5,9 +5,11 @@ import { bindActionCreators } from 'redux';
 import * as actions from 'redux/modals/modalActions';
 
 import EventDialog from 'ui/components/Events/EventDialog';
+import EventFormModal from 'ui/components/Events/EventFormModal';
 
 const MODAL_COMPONENTS = {
-  'event-dialog': EventDialog
+  'event-dialog': EventDialog,
+  'event-form-dialog': EventFormModal
   /* other modals */
 }
 
