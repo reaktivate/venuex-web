@@ -6,6 +6,7 @@ import moment from 'moment';
 import Rings from 'ui/icons/Rings.js';
 import ViewEvent from 'ui/components/Events/ViewEvent';
 import EditEvent from 'ui/components/Events/ViewEvent';
+import Button from 'ui/elements/Button';
 
 const Container = styled.div`
   display:flex;
@@ -41,7 +42,9 @@ export default class EventDialog extends Modal.AbstractModal {
           }
         </Modal.Content>
         <Modal.Actions>
-          <div>footer :)</div>
+          <div>
+            <Button onClick={()=>this.props.onSwitchToEdit(event)} label="Edit"/>
+          </div>
         </Modal.Actions>
       </Modal.Modal>
     )

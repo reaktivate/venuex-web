@@ -107,9 +107,25 @@ class Events extends PureComponent {
     });
   };
 
-  closeModal = () =>{
+  closeModal = () => {
     this.props.history.push(`/events`);
     this.props.closeModal({id:''});
+  }
+
+  switchToEdit = (event) => {
+
+    this.props.closeModal({id:'event-dialog'});
+    this.props.openModal({
+        id: "event-form-dialog",
+        type: 'custom',
+        props: {
+          event: event,
+          initialValues: event,
+          onClose: this.closeModal,
+          rooms: this.props.rooms
+        }
+      }
+    );
   }
 
   defaultEvent(date) {
@@ -156,7 +172,11 @@ class Events extends PureComponent {
   }
 
   handleEventClick = event => {
-    console.log(this.props)
+
+    this.setState({
+      viewingEvent: event,
+    });
+
     this.props.history.push(`/events/${event.id}`);
     this.props.openModal({
         id: "event-dialog",
@@ -164,6 +184,7 @@ class Events extends PureComponent {
         props: {
           event: event,
           onClose: this.closeModal,
+          onSwitchToEdit: this.switchToEdit,
           rooms: this.props.rooms
         }
       }
