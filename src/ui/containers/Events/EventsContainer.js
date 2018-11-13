@@ -11,6 +11,7 @@ import EventsCalendar from '../../components/Events/EventsCalendar';
 import EventsHeader from '../../components/Events/EventsHeader';
 import { openModal, closeModal } from 'redux/modals/modalActions';
 import { createEventThunk } from 'redux/firebase/firebaseActions';
+import * as _ from 'lodash';
 
 const LegendItem = styled.div`
   margin-top: 15px;
@@ -112,6 +113,16 @@ class Events extends PureComponent {
     this.props.closeModal({id:''});
   }
 
+  prepareEventDataForForm(event) {
+    let _event = _.clone(event);
+    const toDates = ['firstPaymentDue', 'secondPaymentDue', 'thirdPaymentDue'];
+    toDates.forEach((date) => {
+      _event[date] = moment(_event[date]);
+    });
+    console.log('EVENT', _event);
+    return _event;
+  }
+
   switchToEdit = (event) => {
 
     this.props.closeModal({id:'event-dialog'});
@@ -120,7 +131,7 @@ class Events extends PureComponent {
         type: 'custom',
         props: {
           event: event,
-          initialValues: event,
+          initialValues: this.prepareEventDataForForm(event),
           onClose: this.closeModal,
           rooms: this.props.rooms
         }
