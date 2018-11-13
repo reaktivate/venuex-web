@@ -24,6 +24,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-big-calendar-like-google": "^0.0.3",
+    "react-datepicker": "^1.8.0",
     "react-dom": "^16.5.2",
     "react-hoc": "^0.1.8",
     "react-redux": "^5.1.0",

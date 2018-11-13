@@ -1,10 +1,9 @@
-/* eslint-disable */
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { Field } from 'redux-form';
+import BaseInput from 'ui/elements/form/BaseInput';
 
-import BaseInput from './BaseInput';
-
-const Input = styled.input`
+const StyledTextField = styled.input`
   border: none;
   border-bottom: solid 1px #d8d8d8;
   display: block;
@@ -23,8 +22,30 @@ const Input = styled.input`
 
 `;
 
-export default props => (
-  <BaseInput {...props}>
-    <Input type="text" {...props.input} {...props} />
-  </BaseInput>
+const Input = (props) => (
+  <BaseInput {...props}><StyledTextField {...props} /></BaseInput>
 );
+
+const TextFieldRenderer = ({
+   input,
+   label,
+   meta: { touched, error },
+   ...custom
+ }) => (
+  <Input
+    hintText={label}
+    floatingLabelText={label}
+    errorText={touched && error}
+    label={label}
+    {...input}
+    {...custom}
+  />
+);
+
+
+const InputField = (props) => (
+  <Field component={TextFieldRenderer} {...props} />
+);
+
+export default Input;
+export { Input, InputField };
