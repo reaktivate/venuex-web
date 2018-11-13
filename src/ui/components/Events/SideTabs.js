@@ -72,6 +72,7 @@ class SideTabs extends PureComponent {
             <Tab
               isActive={i === activeTab}
               onClick={() => this.setState({ activeTab: i })}
+              key={tab.title}
             >
               <Icon src={tab.icon} />
               <div>{tab.title}</div>

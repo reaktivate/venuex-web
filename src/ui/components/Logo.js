@@ -6,14 +6,21 @@ import { getLogoThunk } from '../../redux/venue/venueActions';
 
 
 const Container = styled.div`
-  display: flex;
+  display: block;
+  max-width: 192px;
+  width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+  margin: 0 auto 55px auto;
+  @media screen and (max-width: 1100px){
+    margin-bottom: 20px
+  }
 `;
 
 
 const LogoImage = styled.img`
-  height: 100px;
-  object-fit: contain;
-  margin:auto;
+  width: 100%;
+  height: auto;
 `;
 
 

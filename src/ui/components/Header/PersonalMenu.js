@@ -11,7 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import styled from 'styled-components';
-import LogOut from 'ui/icons/LogOut';
+import LogOut from '../../icons/LogOut';
 
 const Container = styled.div`
   div[role=tooltip] {

@@ -10,7 +10,7 @@ import serviceWorker from './serviceWorker';
 
 WebFont.load({
   google: {
-    families: ['Montserrat:400,600,700', 'sans-serif']
+    families: ['Montserrat:400,600,700', 'Lora:400,600,700', 'sans-serif']
   }
 });
 

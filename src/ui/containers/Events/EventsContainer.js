@@ -7,10 +7,10 @@ import styled from 'styled-components';
 import { firebaseConnect, isLoaded } from 'react-redux-firebase';
 import { getVenueId } from 'redux/venue/venueSelectors';
 import GenericHeader from 'ui/components/GenericHeader';
-import EventsCalendar from './EventsCalendar';
+import EventsCalendar from '../../components/Events/EventsCalendar';
 import EventsHeader from '../../components/Events/EventsHeader';
-import EventDialog from './EventDialog';
 import { openModal, closeModal } from 'redux/modals/modalActions';
+import { createEventThunk } from 'redux/firebase/firebaseActions';
 
 const LegendItem = styled.div`
   margin-top: 15px;
@@ -36,9 +36,8 @@ const LegendItem = styled.div`
 const EventsFrame = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%; 
-  
+  width: 100%; 
+  height: 900px;
   .rbc-month-view {
     border:1px solid #ededed;
     border-top: 0;
@@ -62,6 +61,15 @@ const EventsFrame = styled.div`
       background-color: ${props => `${props.theme.colors.primary}`};
     }
   }
+  @media screen and (max-width: 1300px){
+    height: 800px;
+  }
+  @media screen and (max-width: 1100px){
+    height: 700px;
+  }
+  @media screen and (max-width: 900px){
+    height: 600px;
+  }
 `;
 
 const EventsFooter = styled.div`
@@ -74,6 +82,12 @@ class Events extends PureComponent {
     addDate: new Date(),
     isAddingEvent: false,
   };
+
+  componentDidMount() {
+    const {match} = this.props;
+    if (match.params.id) {
+    }
+  }
 
   handleNextMonth = () => {
     this.setState({
@@ -95,44 +109,65 @@ class Events extends PureComponent {
 
   closeModal = () =>{
     this.props.history.push(`/events`);
-    this.props.dispatch(closeModal({id:'event-dialog'}));
+    this.props.closeModal({id:''});
+  }
+
+  defaultEvent(date) {
+    return {
+      dateTimeDuration: {
+        date: moment(date)
+      }
+    }
   }
 
   handleAdd = (date = null) => {
-    //console.log(date);
+    console.log(this.props);
     const addDate = date?date:this.state.date;
 
     this.setState({
       isAddingEvent: true,
-      addDate
+      // addDate
     });
+    this.props.openModal({
+        id: "event-form-dialog",
+        type: 'custom',
+        props: {
+          event: this.defaultEvent(addDate),
+          onClose: this.closeModal,
+          rooms: this.props.rooms
+        }
+      }
+    );
 
-    this.props.dispatch(openModal({
-      id: "event-dialog",
-      type: 'custom',
-      content: (
-        <EventDialog
-          id='event-dialog'
-          event={{start:moment(addDate)}}
-          onClose={this.closeModal}
-        />
-      )
-    }))
+
+    /*
+        this.props.dispatch(openModal({
+          id: "event-dialog",
+          type: 'custom',
+          content: (
+            <EventDialog
+              id='event-dialog'
+              event={{start:moment(addDate)}}
+              onClose={this.closeModal}
+            />
+          )
+        }))
+        */
   }
 
   handleEventClick = event => {
+    console.log(this.props)
     this.props.history.push(`/events/${event.id}`);
-    this.props.dispatch(openModal({
-      id: "event-dialog",
-      type: 'custom',
-      content: (
-        <EventDialog
-          id='event-dialog'
-          event={event}
-          onClose={this.closeModal}
-        />
-      )
-    }))
+    this.props.openModal({
+        id: "event-dialog",
+        type: 'custom',
+        props: {
+          event: event,
+          onClose: this.closeModal,
+          rooms: this.props.rooms
+        }
+      }
+    );
   }
 
   render() {
@@ -209,6 +244,16 @@ class Events extends PureComponent {
     );
   }
 }
+const mapStateToProps = (state) => ({
+  allEvents: isLoaded(state.firebase.data.events) ? state.firebase.data.events : {},
+  rooms: state.firebase.data.venues[getVenueId(state)].rooms
+});
+
+const mapDispatchToProps = {
+  createEventThunk,
+  openModal,
+  closeModal
+};
 
 export default compose(
   firebaseConnect((props, store) => [{
@@ -218,7 +263,5 @@ export default compose(
       `equalTo=${getVenueId(store.getState())}`,
     ],
   }]),
-  connect(state => ({
-    allEvents: isLoaded(state.firebase.data.events) ? state.firebase.data.events : {},
-  })),
+  connect(mapStateToProps, mapDispatchToProps),
 )(Events);

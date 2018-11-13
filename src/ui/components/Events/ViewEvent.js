@@ -11,6 +11,11 @@ import calendarIcon from 'ui/icons/raw/calendar-gray.svg';
 import notesIcon from 'ui/icons/raw/notes-icon.svg';
 import clientDetailsIcon from 'ui/icons/raw/client-details-icon.svg';
 
+const Container = styled.div`
+  min-height: 300px;
+  display: flex;
+  min-width: 70vh;
+`;
 
 const Header = styled.div`
   height: 160px;
@@ -105,7 +110,11 @@ class ViewEvent extends PureComponent {
   state = {};
 
   render() {
+    const event = this.props.event;
+    const room = this.props.rooms[event.room];
+    const layout = room.layouts[event.tableLayout];
     return (
+      <Container>
       <SideTabs
         tabs={[
           {
@@ -241,15 +250,15 @@ class ViewEvent extends PureComponent {
               <DescriptionList>
                 <div className="row">
                   <dt>Room:</dt>
-                  <dd>--ROOMNAME--</dd>
+                  <dd>{room.name}</dd>
                 </div>
                 <div className="row">
                   <dt>Layout:</dt>
-                  <dd>numberOfTables</dd>
+                  <dd>{layout.numberOfTables}</dd>
                 </div>
                 <div className="row">
                   <dt>Guests per table</dt>
-                  <dd>guestsPerTable</dd>
+                  <dd>{layout.perTable}</dd>
                 </div>
               </DescriptionList>
             )
@@ -268,6 +277,7 @@ class ViewEvent extends PureComponent {
           },
         ]}
       />
+      </Container>
     )
   }
 }
