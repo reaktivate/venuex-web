@@ -10,6 +10,7 @@ import { getUser } from './redux/auth/authSelectors';
 import Sidebar from './ui/components/Sidebar';
 import LoginContainer from './ui/containers/Login/LoginContainer';
 import EventsContainer from './ui/containers/Events/EventsContainer';
+import EventsAddContainer from './ui/containers/Events/EventsAddContainer';
 
 // import Events from './Events';
 // import Events from './Events';
@@ -34,6 +35,7 @@ const _VenueApp = ({ currentUser }) => {
     <React.Fragment>
       <Sidebar>
         <Route exact path="/" component={EventsContainer} />
+        <Route exact path="/event/add" component={EventsAddContainer} />
         <Route exact path="/events/:id" component={EventsContainer} />
         <Route exact path="/events" component={EventsContainer} />
       </Sidebar>
