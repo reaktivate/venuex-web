@@ -8,7 +8,7 @@ import { firebaseConnect, isLoaded } from 'react-redux-firebase';
 import { getVenueId } from 'redux/venue/venueSelectors';
 import GenericHeader from 'ui/components/GenericHeader';
 import EventsCalendar from './EventsCalendar';
-import EventsHeader from './EventsHeader';
+import EventsHeader from '../../components/Events/EventsHeader';
 import EventDialog from './EventDialog';
 import { openModal, closeModal } from 'redux/modals/modalActions';
 
